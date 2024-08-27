@@ -1,0 +1,51 @@
+TASK-2:Stock Trading Platform
+SAMPLE CODE:
+import java.util.HashMap;
+    import java.util.Map;
+
+    public class Stock {
+        private String ticker;
+        private double price;
+
+        public Stock(String ticker, double price) {
+            this.ticker = ticker;
+            this.price = price;
+        }
+
+        public String getTicker() {
+            return ticker;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(double price) {
+            this.price = price;
+        }
+    }
+
+    public class Portfolio {
+        private Map<String, Integer> stocks = new HashMap<>();
+
+        public void buyStock(String ticker, int quantity) {
+            stocks.put(ticker, stocks.getOrDefault(ticker, 0) + quantity);
+        }
+
+        public void sellStock(String ticker, int quantity) {
+            if (stocks.containsKey(ticker)) {
+                int newQuantity = stocks.get(ticker) - quantity;
+                if (newQuantity <= 0) {
+                    stocks.remove(ticker);
+                } else {
+                    stocks.put(ticker, newQuantity);
+                }
+            }
+        }
+
+        public void displayPortfolio() {
+            for (Map.Entry<String, Integer> entry : stocks.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue() + " shares");
+            }
+        }
+    }
