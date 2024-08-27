@@ -1,0 +1,19 @@
+Task 3: Artificial Intelligence Chatbot
+SAMPLE CODE:
+   import java.util.Scanner;
+
+    public class Chatbot {
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Hello! I'm your friendly chatbot. How can I help you today?");
+            while (true) {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("bye")) {
+                    System.out.println("Goodbye!");
+                    break;
+                }
+                System.out.println("You said: " + input);
+            }
+            scanner.close();
+        }
+    }
