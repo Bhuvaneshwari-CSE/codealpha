@@ -1,51 +1,33 @@
 TASK-2:Stock Trading Platform
 SAMPLE CODE:
-import java.util.HashMap;
-    import java.util.Map;
+import java.util.Scanner;
 
-    public class Stock {
-        private String ticker;
-        private double price;
+public class Main {
+    public static void main(String[] args) {
+        String[] symbols = {"APPLE", "ORANGE", "GRAPES"};
+        double[] prices = {150.00, 2800.00, 3400.00};
+        double balance = 10000.00;
+        Scanner sc = new Scanner(System.in);
 
-        public Stock(String ticker, double price) {
-            this.ticker = ticker;
-            this.price = price;
-        }
-
-        public String getTicker() {
-            return ticker;
-        }
-
-        public double getPrice() {
-            return price;
-        }
-
-        public void setPrice(double price) {
-            this.price = price;
-        }
-    }
-
-    public class Portfolio {
-        private Map<String, Integer> stocks = new HashMap<>();
-
-        public void buyStock(String ticker, int quantity) {
-            stocks.put(ticker, stocks.getOrDefault(ticker, 0) + quantity);
-        }
-
-        public void sellStock(String ticker, int quantity) {
-            if (stocks.containsKey(ticker)) {
-                int newQuantity = stocks.get(ticker) - quantity;
-                if (newQuantity <= 0) {
-                    stocks.remove(ticker);
-                } else {
-                    stocks.put(ticker, newQuantity);
+        while (true) {
+            System.out.println("1. View Prices 2. Buy 3. Sell 4. Check Balance 5. Exit");
+            int choice = sc.nextInt(); sc.nextLine();
+            if (choice == 1) {
+                for (int i = 0; i < symbols.length; i++) System.out.println(symbols[i] + ": $" + prices[i]);
+            } else if (choice == 2) {
+                System.out.print("Symbol: "); String symbol = sc.nextLine();
+                System.out.print("Quantity: "); int qty = sc.nextInt();
+                for (int i = 0; i < symbols.length; i++) if (symbols[i].equals(symbol)) {
+                    if (prices[i] * qty > balance) System.out.println("Insufficient balance.");
+                    else balance -= prices[i] * qty;
                 }
-            }
+            } else if (choice == 3) {
+                System.out.print("Symbol: "); String symbol = sc.nextLine();
+                System.out.print("Quantity: "); int qty = sc.nextInt();
+                for (int i = 0; i < symbols.length; i++) if (symbols[i].equals(symbol)) balance += prices[i] * qty;
+            } else if (choice == 4) System.out.println("Balance: $" + balance);
+            else if (choice == 5) break;
         }
-
-        public void displayPortfolio() {
-            for (Map.Entry<String, Integer> entry : stocks.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue() + " shares");
-            }
-        }
+        sc.close();
     }
+}
